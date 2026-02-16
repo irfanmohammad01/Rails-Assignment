@@ -1,0 +1,10 @@
+<div id="<%= dom_id comment %>" style="border-top: 1px solid #ccc; padding-top: 10px; margin-top: 10px;">
+  <p>
+    <%= comment.content %>
+  </p>
+  <p>
+    <small>Posted <%= time_ago_in_words(comment.created_at) %> ago</small>
+  </p>
+  <%= link_to "Edit", edit_blog_comment_path(comment.blog, comment) %> |
+  <%= button_to "Delete Comment", [comment.blog, comment], method: :delete, data: { confirm: "Are you sure?" }, style: "color: red; display: inline-block;" %>
+</div>

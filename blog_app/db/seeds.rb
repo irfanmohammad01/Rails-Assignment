@@ -1,9 +1,28 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Comment.destroy_all
+Blog.destroy_all
+
+5.times do |i|
+  blog = Blog.create!(
+    title: "Published Blog Post #{i + 1}",
+    body: "This is the body of published blog post #{i + 1}.",
+    published: true
+  )
+
+  puts "Created published blog: #{blog.title}"
+
+  3.times do |j|
+    blog.comments.create!(
+      content: "This is comment #{j + 1} for published blog #{i + 1}."
+    )
+    puts "  -> Created comment for blog: #{blog.title}"
+  end
+end
+
+5.times do |i|
+  blog = Blog.create!(
+    title: "Unpublished Blog Post #{i + 1}",
+    body: "This is the body of unpublished blog post #{i + 1}.",
+    published: false
+  )
+  puts "Created unpublished blog: #{blog.title}"
+end
